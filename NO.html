@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navier-Stokes Neural Operator Project</title>
+
+<!-- MathJax for equations -->
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #e5e7eb;
+    margin: 0;
+    padding: 40px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    margin-top: 40px;
+    color: #93c5fd;
+}
+
+p {
+    line-height: 1.6;
+    color: #cbd5f5;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+video {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.section {
+    margin-top: 40px;
+}
+
+.math {
+    background: #020617;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+.image-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.image-row img {
+    height: 300px;       /* controls size */
+    width: auto;         /* keeps aspect ratio */
+    border-radius: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Neural Operators for Fluid Dynamics</h1>
+
+<p>
+    In this project, I worked as an AI Research Intern at Central Michigan University under the supervision of Dr. Zheng. The project was funded by the NSF from May 2025 – August 2025. The work focused on scientific machine learning for modeling fluid dynamics.
+</p>
+<p>
+   We also had collaboration with researchers at the University of Notre Dame, including interactions with Dr. Wu.
+</p>
+<p>
+    My work involved researching and implementing Physics-Informed Neural Networks PINNs, DeepONets, and Neural Operators for modeling fluid dynamics systems such as the Boussinesq/Navier–Stokes equations, including coupled learning of temperature and vorticity fields.
+</p>
+
+<!-- ================= DEEPONET ================= -->
+<div class="section">
+<h2>Physics Informed Neural Networks: Velocity & Pressure</h2>
+
+<p>
+I researched the original PINN implementation by 
+<a href="https://github.com/rssw2019/MachineLearning" target="_blank">Ramjee Sharma</a>. 
+
+This work implements the model for the 2-D incompressible Navier–Stokes equations. PINNs 
+is a deep learning approach that integrates physical laws into the training process. 
+Instead of relying purely on data, the model learns solutions that satisfy physical equations, 
+such as partial differential equations (PDEs). This allows the model to learn solutions consistent with the physics laws.
+
+</p>
+<p>I extended the model by introducing and testing multiple architectural modifications to improve performance. The lowest error architecture was an 
+<a href="https://github.com/AkramMoustafa/MachineLearning" target="_blank">hourglass-based design</a>.
+This hourglass design optimized the model and resulted in a 13% reduction in prediction error. The results are visualized below.</p>
+
+<div class="image-row">
+    <img src="p_evolution.gif">
+    <img src="velocity_quiver_animation.gif">
+</div>
+</div>
+
+<!-- ================= NEURAL OPERATOR ================= -->
+<div class="section">
+<h2>Neural Operator: Temperature & Vorticity</h2>
+<p>
+I implemented a Neural Operator model to learn fluid dynamics for the incompressible 2-D Navier-Stokes Equations. 
+The model learns the interaction between temperature and vorticity as it uses both fields during training while predicting only the vorticity channel. The full implementation is available in the following GitHub repository:
+<a href="https://github.com/AkramMoustafa/neuraloperator/blob/main/scripts/train_navier_stokes_bouyancy.py" target="_blank">
+View implementation
+</a>
+</p>
+<p>
+  The original architecture was developed by NVIDIA. The official implementation can be found in the 
+  <a href="https://github.com/neuraloperator/neuraloperator" target="_blank">NeuralOperator GitHub repository</a>, 
+</p>
+
+<h2>Dataset</h2>
+<p>
+    The mathematical theory is based on the Boussinesq system described in the following research paper:
+    <a href="https://doi.org/10.1007/s00030-022-00773-4" target="_blank">
+        Adhikari et al. (2022) – Stability and large-time behavior for the 2D Boussinesq system
+    </a>, which serves as the theoretical foundation for the solver implementation.
+</p>
+<p>
+       I reimplemented and optimized a Boussinesq PDE solver from C to Python. 
+Performance was a major bottleneck as the dataset generation was taking around 12 hours to generate. So, I introduced GPU acceleration by moving all FFT operations from CPU to GPU. I have also changed the structure of the solver to operate in a fully batched way instead of processing one simulation at a time. 
+Lastly, I vectorized the repeated FFT calls inside loops as I placed them on stacked tensors. 
+
+</p>
+<p>
+    As a result of these changes, I was able to achieve 8 to 32 times speedup in dataset generation, depending on the batch size and available GPU memory.
+The following equations present the mathematical foundation, with corresponding plots to visualize their behavior.  <a href="https://github.com/AkramMoustafa/neuraloperator/blob/main/neuralop/data/datasets/boussinesq_solver.ipynb" target="_blank">View the dataset generation pipeline</a>
+</p>
+
+
+
+<div class="section">
+
+<div class="math">
+<p>
+The Navier–Stokes equations describe the evolution of fluid flow:
+</p>
+
+<p>
+\[
+\frac{\partial u}{\partial t} + (u \cdot \nabla) u = -\nabla p + \nu \Delta u + \theta e_2
+\]
+</p>
+
+<p>
+\[
+\frac{\partial \theta}{\partial t} + u \cdot \nabla \theta = \eta \Delta \theta
+\]
+</p>
+
+<p>
+In vorticity form:
+</p>
+
+<p>
+\[
+\frac{\partial \omega}{\partial t} + u \cdot \nabla \omega = \nu \Delta \omega + \frac{\partial \theta}{\partial x}
+\]
+</p>
+
+<p>
+The Neural Operator learns a mapping:
+</p>
+
+<p>
+\[
+\mathcal{G}: (u_0, \theta_0) \rightarrow (u(t), \theta(t))
+\]
+</p>
+</div>
+
+
+<div>
+    
+    <p>Vorticity Field</p>
+    <img src="vort.png" style="width:100%; border-radius:10px;">
+
+    <p>Temperature Field</p>
+    <img src="temp.png" style="width:100%; border-radius:10px; margin-bottom:20px;">
+
+</div>
+
+</div>
+<h2>Model Architecture</h2>
+<p>
+    The model processes the input by first lifting it into a higher-dimensional space, passing it through multiple Fourier 
+    layers to learn global fluid interactions, and then projecting it back to predict the vorticity field. 
+    Both temperature and vorticity are used as inputs during training, but the model is designed to predict only the vorticity 
+    field. Although temperature becomes flat and uninformative for prediction, it still plays a critical role in shaping the vorticity output.</p>
+<p>
+        <img src="diagram.png" style="width:80%; border-radius:10px; margin-bottom:20px;">
+
+
+
+</div>
+
+<!-- ================= IMPACT ================= -->
+<div class="section">
+
+
+<div class="section">
+<h2>Results & Model Performance</h2>
+
+<p>
+The model shows stable convergence during training. Loss decreased from approximately 0.40 to below 0.02. 
+The initial decline indicates effective learning, while the later plateau suggests convergence to a stable solution.
+</p>
+
+<div class="grid">
+    <img src="training_loss.png" alt="Training Loss Curve" style="width:100%; border-radius:10px;">
+    <img src="l2_loss.png" alt="Evaluation Error Curve" style="width:100%; border-radius:10px;">
+</div>
+
+</div>
+<!-- ================= GITHUB ================= -->
+<div class="section">
+<h2>Project Repository</h2>
+
+<p>
+The full implementation, including data generation, model training, and visualization pipelines, is available on GitHub.
+</p>
+
+<p>
+<a href="https://github.com/AkramMoustafa/neuraloperator" target="_blank" style="color:#60a5fa; font-weight:bold;">
+View Code on GitHub →
+</a>
+</p>
+
+<p>
+This repository includes:
+</p>
+
+<ul style="color:#cbd5f5; line-height:1.6;">
+<li>High-performance PDE data generation pipeline</li>
+<li>Neural Operator (FNO) implementation in PyTorch</li>
+<li>Training and evaluation scripts</li>
+<li>Visualization tools for fluid dynamics simulations</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

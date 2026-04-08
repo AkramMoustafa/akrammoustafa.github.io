@@ -1,27 +1,182 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Your Name</title>
-  <style>
-    body {
-      font-family: Arial;
-      margin: 40px;
-      background: #0f172a;
-      color: white;
-    }
-    h1 { font-size: 3rem; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akram Moustafa | AI Engineer</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(180deg, #0f172a, #020617);
+            color: #e5e7eb;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            margin-top: 50px;
+            margin-bottom: 20px;
+            color: #93c5fd;
+        }
+
+        p {
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+
+        .hero {
+            margin-bottom: 40px;
+        }
+
+        .links a {
+            margin-right: 15px;
+            color: #60a5fa;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #020617;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 20px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #e5e7eb;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #1e293b;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            margin-top: 10px;
+            margin-right: 5px;
+            color: #93c5fd;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            color: #6b7280;
+        }
+    </style>
 </head>
+
 <body>
 
-<h1>Your Name</h1>
-<p>I build computational models and pitch ideas.</p>
+<div class="container">
 
-<h2>Projects</h2>
-<ul>
-  <li>Navier-Stokes 2D Simulation</li>
-  <li>Pitch Competition Project</li>
-</ul>
+    <!-- HERO -->
+    <div class="hero">
+        <h1>Akram Moustafa</h1>
+        <p><strong>AI Engineer | Machine Learning Systems</strong></p>
+
+        <p>
+            I build AI systems that predict and act on real-world risk.
+            From supply chain disruption modeling to physics-based simulations,
+            I focus on turning data into decisions — not just predictions.
+        </p>
+
+        <div class="links">
+          <a href="https://github.com/AkramMoustafa" target="_blank">GitHub</a>
+          <a href="https://www.linkedin.com/in/akram-moustafa-ba413729b/" target="_blank">LinkedIn</a>
+          <a href="resume.pdf" target="_blank">Resume</a>
+        </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <h2>Projects</h2>
+
+    <div class="grid">
+
+    <div class="card">
+        <img src="nomi.png" alt="Nomi AI Platform" style="width:100%; border-radius:10px; margin-bottom:10px;">
+
+        <h3>Supply Chain Risk Engine</h3>
+        <p>
+            Real-time system embedded in procurement workflows to validate purchase orders against trade risks.
+        </p>
+
+        <p><strong>Impact:</strong> Preventive risk detection before approval</p>
+
+        <a href="https://nomioc.com/" target="_blank">View Live Product →</a>
+
+        <br><br>
+
+        <span class="tag">AI Systems</span>
+        <span class="tag">Supply Chain</span>
+        <span class="tag">Risk Modeling</span>
+    </div>
+
+        <a href="NO.html" style="text-decoration:none; color:inherit;">
+            <div class="card">
+                <img src="diagram.png" alt="Nomi AI Platform" style="width:100%; border-radius:10px; margin-bottom:10px;">
+                <h3>Neural Operator (FNO) Simulation</h3>
+                <p>
+                    Built a Fourier Neural Operator to simulate fluid dynamics and solve PDEs efficiently.
+                </p>
+                <p><strong>Impact:</strong> Faster simulation vs traditional solvers</p>
+
+                <span class="tag">PyTorch</span>
+                <span class="tag">Deep Learning</span>
+                <span class="tag">Physics ML</span>
+            </div>
+        </a>
+
+        <div class="card">
+            <h3>LLM Bias Detection</h3>
+            <p>
+                Evaluated bias and hallucination in large language models using benchmark datasets.
+            </p>
+            <p><strong>Tools:</strong> BBQ, TruthfulQA, WEAT</p>
+
+            <span class="tag">NLP</span>
+            <span class="tag">LLMs</span>
+            <span class="tag">Research</span>
+        </div>
+
+    </div>
+
+    <!-- ABOUT -->
+    <h2>About</h2>
+    <p>
+        I’m a graduate student in Computer Science at Central Michigan University and a co-founder of Nomi AI.
+        My work sits at the intersection of machine learning, systems, and real-world decision making.
+    </p>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2026 Akram Moustafa
+    </footer>
+
+</div>
 
 </body>
 </html>
