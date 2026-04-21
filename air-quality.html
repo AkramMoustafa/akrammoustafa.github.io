@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Air Quality Prediction System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1220;
+      color: #e5e7eb;
+      line-height: 1.6;
+    }
+.image-row {
+  display: flex;
+  gap: 20px;
+}
+.links {
+  margin: 15px 0;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.links a {
+  background: #1e293b;
+  color: #e5e7eb;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: 0.2s ease;
+}
+
+.links a:hover {
+  background: #334155;
+}
+
+.image-row .image {
+  width: 50%;
+  margin: 0;
+  border-radius: 10px;
+}
+
+/* 🔥 Mobile fix */
+@media (max-width: 900px) {
+  .image-row {
+    flex-direction: column;
+  }
+
+  .image-row .image {
+    width: 100%;
+  }
+}
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      margin-top: 40px;
+      color: #60a5fa;
+    }
+
+    p {
+      color: #cbd5e1;
+    }
+
+    .image {
+      width: 100%;
+      border-radius: 12px;
+      margin: 20px 0;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #1e293b;
+      padding: 6px 12px;
+      border-radius: 20px;
+      margin-right: 8px;
+      font-size: 0.85rem;
+    }
+
+    .section {
+      margin-top: 30px;
+    }
+
+    .back {
+      margin-top: 40px;
+      display: inline-block;
+      color: #a78bfa;
+      text-decoration: none;
+    }
+
+    .back:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- Title -->
+  <h1>Air Quality Prediction System</h1>
+    <h2>Live Demo & Resources</h2>
+
+    <div class="links">
+    <a href="https://air-pollution-prediction-git-main-akram-moustafas-projects.vercel.app" target="_blank">🌐 View Live Application</a>
+    <a href="https://github.com/AkramMoustafa/air_pollution_prediction/blob/main/AirPredictionModel.ipynb" target="_blank">📓 View Scientific Notebook</a>
+    </div>
+
+  <p>
+    AI-powered system that predicts air pollution using real-time and historical sensor data.
+  </p>
+
+  <!-- Tags -->
+  <div>
+    <span class="tag">AI Systems</span>
+    <span class="tag">Time Series</span>
+    <span class="tag">Spatial Modeling</span>
+  </div>
+
+  <!-- Image -->
+  <img src="assets/2.5_forecast_map.png" alt="Air Quality Map" class="image">
+
+  <!-- Overview -->
+  <div class="section">
+    <h2>Overview</h2>
+    <p>
+        This system provides real-time and predictive air quality insights by forecasting pollution levels across different regions. It allows users to anticipate and visualize changes in air quality using an interactive heatmap.
+    </p>
+
+    <p>
+        The platform generates predictions up to 7 days ahead to analyze both short-term fluctuations and long-term trends in PM2.5 and PM10 levels.
+    </p>
+
+    <p style="color:#94a3b8; font-size:0.9rem;">
+        Predictions are visualized through an interactive map interface, where users can explore air quality conditions across multiple time horizons (1h, 6h, 12h, 24h, and 7 days).
+    </p>
+</div>
+
+    <div class="section">
+    <h2>Target Users</h2>
+    <ul>
+        <li><b>Health-conscious individuals</b>: especially those with asthma or respiratory conditions who need to avoid polluted environments</li>
+        <li><b>Urban residents</b>: people living in cities where air quality fluctuates frequently</li>
+        <li><b>Outdoor activity planners</b>: runners, cyclists, and athletes who rely on safe air conditions</li>
+        <li><b>Researchers and analysts</b>: users interested in understanding environmental patterns and pollution trends</li>
+    </ul>
+    </div>
+
+    <div class="section">
+        <h2>Current Stage</h2>
+        <h3>System Overview</h3>
+        <p>
+        The system is currently deployed as a platform that shows real-time sensor data alongside model-generated predictions. The green markers represent air quality sensor locations distributed across different regions.
+        </p>
+
+
+        <h3>Current Development</h3>
+        <p>
+         As the model has shown strong performance in forecasting PM2.5 and PM10 levels across multiple regions, the current phase focuses on improving data pipeline flow and API integration for a more efficient real-time system. At the same time, the user interface is being enhanced by transitioning from a basic map with numeric outputs to a heatmap visualization of air quality
+        </p>
+
+    </div>
+      <img src="assets/current_stage.png" alt="Air Quality Map" class="image">
+
+<h2>Technical Implementation</h2>
+
+    <p>
+    The system is built as an end-to-end machine learning pipeline that integrates real-time data ingestion, feature engineering, and predictive modeling.
+    </p>
+
+    <ul>
+    <li><b>Data Ingestion:</b> Pulling data from OpenAQ and storing it in AWS for accessibility.</li>
+    
+    <li><b>Feature Engineering:</b> Creating time-series features, such as lag values (1h, 6h, 12h, 24h) and neighboring sensors' data.</li>
+    
+    <li><b>Spatial Modeling:</b> Using sensor neighbor mapping to show the whole region's predictions (not only individual sensors).</li>
+    
+    <li><b>Data Quality Control:</b> Implementing sensor health scoring based on recording consistency.</li>
+    
+    <li><b>Modeling:</b> Training XGBoost to predict PM2.5 and PM10.</li>
+    
+    <li><b>Evaluation:</b> Using time-based train/test splits.</li>
+    </ul>
+    
+<div class="image-row">
+  <img src="assets/air_pollution_plot.png" alt="Air Quality Map" class="image">
+  <img src="assets/zoomed_model_prediction.png" alt="Zoomed Prediction" class="image">
+</div>
+
+<h3>Model Performance</h3>
+
+<p>
+The model was trained on over <b>65,000+</b> cleaned PM2.5 observations collected from multiple sensors in the selected region and covering a time range between April 2023 and April 2026.
+</p>
+
+<p>
+The data was split into <b>20,236 training samples</b> and <b>5,230 test samples</b>.
+</p>
+
+<ul>
+  <li><b>XGBoost:</b> MAE = 1.80, RMSE = 2.93, R² = 0.884</li>
+  <li><b>LightGBM:</b> MAE = 1.79, RMSE = 2.88, R² = 0.888</li>
+</ul>
+
+<p>
+Both models explain approximately 88% of the variance in PM2.5 levels (R² = 0.884 for XGBoost and 0.888 for LightGBM).
+</p>
+
+<p>
+Additionally, the model achieved a 90% residual interval of [-3.95, 3.63].
+</p>
+  <a href="index.html" class="back">← Back to Portfolio</a>
+
+</div>
+
+</body>
+</html>
